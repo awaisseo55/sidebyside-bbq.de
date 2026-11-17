@@ -1,12 +1,14 @@
-# Alle nicht gefundenen Seiten auf die Startseite leiten
-ErrorDocument 404 /404.html
+# 301-Weiterleitung der gesamten Domain sidebyside-bbq.de
+# Ziel: https://gebaeudewerke.de/hausmeisterservice.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  # Vorhandene Dateien und Ordner unverändert ausliefern
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-  # Alles andere dauerhaft auf die Startseite
-  RewriteRule ^ / [R=301,L]
+  RewriteRule ^.*$ https://gebaeudewerke.de/hausmeisterservice.html [R=301,L]
+</IfModule>
+
+# Fallback, falls mod_rewrite nicht verfuegbar ist
+<IfModule !mod_rewrite.c>
+  <IfModule mod_alias.c>
+    RedirectMatch 301 ^/.*$ https://gebaeudewerke.de/hausmeisterservice.html
+  </IfModule>
 </IfModule>
