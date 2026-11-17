@@ -1,0 +1,12 @@
+# Alle nicht gefundenen Seiten auf die Startseite leiten
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Vorhandene Dateien und Ordner unverändert ausliefern
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  # Alles andere dauerhaft auf die Startseite
+  RewriteRule ^ / [R=301,L]
+</IfModule>
